@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "569797753878",
+    "project_id": "medpocket-latest",
+    "storage_bucket": "medpocket-latest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569797753878:android:1eff654f1dfe1686be8937",
+        "android_client_info": {
+          "package_name": "com.app.medpocket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMp1Y9HdKr1i8lJ6bdDFhY5ESVM2uJRvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
