@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:lottie/lottie.dart';
@@ -43,7 +45,7 @@ class _OrderPageState extends State<OrderPage> {
     });
   }
 
-  getOrdersItems({is_received = false}) {
+  getOrdersItems({bool is_received = false}) {
     setState(() {
       loading = true;
     });
@@ -63,7 +65,8 @@ class _OrderPageState extends State<OrderPage> {
       if (orderList.length > 0) {
         return Expanded(
           child: CustomListView(
-            hasData: orderList != null && orderList.length ? true : false,
+            hasData: (orderList.length > 0) ? true : false,
+            // hasData: orderList != null && orderList.length ? true : false,
             child: ListView.builder(
                 padding: const EdgeInsets.all(8),
                 itemCount: orderList != null ? orderList.length : 0,

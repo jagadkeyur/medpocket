@@ -1,10 +1,18 @@
+import 'dart:convert';
+
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:medpocket/src/actions/RestartWidget.dart';
+import 'package:medpocket/src/api/auth.dart';
 import 'package:medpocket/src/api/profile.dart';
 import 'package:medpocket/src/components/layout/PageLoader.dart';
+import 'package:medpocket/src/components/ui/CustomDropDown.dart';
 import 'package:medpocket/src/components/ui/CustomTextField.dart';
 import 'package:medpocket/src/components/ui/ThemeButton.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -21,16 +29,34 @@ class _ProfilePageState extends State<ProfilePage> {
   final firmName = TextEditingController();
   final city = TextEditingController();
   final mobileNumber = TextEditingController();
+  dynamic jwt;
   final totalField = 6;
   int compeletedField = 0;
   double progress = 0;
   bool buttonLoading = false;
   bool loading = false;
+  String center = "";
+  String token = "";
+  List<String> centers = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getUserProfile();
+
+    List<dynamic> data = [];
+    List<String> newData = [];
+    getCenters().then((value) => {
+          data = value['data'],
+          print(data),
+          setState(() => {
+                centers = data.map(
+                  (item) {
+                    return (item['center'] as String).toUpperCase();
+                  },
+                ).toList()
+              })
+        });
   }
 
   getUserProfile() {
@@ -48,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 lastName.text = user['last_name'] ?? "";
                 email.text = user['email'] ?? "";
                 firmName.text = user['firm_name'] ?? "";
-                city.text = user['city'] ?? "";
+                center = user['city'] ?? "";
                 mobileNumber.text = user['phone'].toString() ?? "";
                 if (user['first_name'] != null || user['first_name'] != "")
                   compeletedField += 1;
@@ -69,6 +95,12 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
+  setPrefs(token, user) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("token", token);
+    prefs.setString("user", jsonEncode(user));
+  }
+
   updateUserProfile() {
     setState(() {
       buttonLoading = true;
@@ -77,14 +109,20 @@ class _ProfilePageState extends State<ProfilePage> {
         "last_name": lastName.text,
         "email": email.text,
         "firm_name": firmName.text,
-        "city": city.text,
+        "city": center ?? "",
         "phone": mobileNumber.text,
       };
       updateProfile(data).then((value) => {
             buttonLoading = false,
             Fluttertoast.showToast(
                 msg: "Profile Updated", toastLength: Toast.LENGTH_LONG),
-            if (value['status'] == 1) getUserProfile()
+            if (value['status'] == 1)
+              {
+                jwt = JWT(value['data']),
+                token = jwt.sign(SecretKey('medpocket@2022')),
+                setPrefs(token, value['data']),
+                Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false)
+              }
           });
     });
   }
@@ -229,13 +267,18 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CustomTextField(
-                                controller: city,
-                                onChanged: () {},
-                                validator: () {},
-                                hint: "City",
-                                // readOnly: true,
+                              padding: const EdgeInsets.all(8),
+                              child: CustomDropDown(
+                                hint: "Center",
+                                items: centers,
+                                onChanged: ((val) =>
+                                    setState(() => {center = val ?? ""})),
+                                baseColor: Colors.grey,
+                                borderColor: Colors.grey,
+                                errorColor: Colors.red,
+                                validator: () => {},
+                                defaultValue: center,
+                                enabled: false,
                               ),
                             ),
                             Padding(

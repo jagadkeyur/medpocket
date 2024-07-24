@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:medpocket/src/actions/RestartWidget.dart';
 import 'package:medpocket/src/api/firebase_api.dart';
 import 'package:medpocket/src/app_state/AppState.dart';
 import 'package:medpocket/src/navigation/index.dart';
@@ -7,13 +9,13 @@ import 'package:medpocket/src/reducers/AppReducer.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseApi().initNotification();
   final store = Store<AppState>(appReducer,
       initialState: AppState.initial(), middleware: [thunkMiddleware]);
-  runApp(const MyApp());
+  runApp(RestartWidget(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

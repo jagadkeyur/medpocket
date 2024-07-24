@@ -201,6 +201,7 @@ class _ProductDetailState extends State<ProductDetail> {
             context: context,
             useSafeArea: true,
             useRootNavigator: true,
+            isScrollControlled: true,
             builder: (BuildContext context) {
               return StatefulBuilder(
                 builder: (BuildContext context,
@@ -247,18 +248,16 @@ class _ProductDetailState extends State<ProductDetail> {
                       child: Column(
                         children: [
                           Expanded(
-                            child: SingleChildScrollView(
-                              child: AddCartStockiestList(
-                                company: selectedCompany,
-                                selectedItem: selectedStockiest != null
-                                    ? selectedStockiest['FIRM_NAME']
-                                    : "",
-                                onClick: (val) {
-                                  setState(() {
-                                    selectedStockiest = val;
-                                  });
-                                },
-                              ),
+                            child: AddCartStockiestList(
+                              company: selectedCompany,
+                              selectedItem: selectedStockiest != null
+                                  ? selectedStockiest['FIRM_NAME']
+                                  : "",
+                              onClick: (val) {
+                                setState(() {
+                                  selectedStockiest = val;
+                                });
+                              },
                             ),
                           ),
                           Container(
@@ -389,7 +388,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           onClick: () => {
                             showModalBottomSheet<void>(
                                 context: context,
-                                isScrollControlled: false,
+                                isScrollControlled: true,
                                 useSafeArea: true,
                                 useRootNavigator: true,
                                 builder: (BuildContext context) {

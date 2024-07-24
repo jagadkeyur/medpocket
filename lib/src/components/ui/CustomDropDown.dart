@@ -14,12 +14,14 @@ class CustomDropDown extends StatefulWidget {
   final Function validator;
   final Function(String?) onChanged;
   final List<String> items;
+  final bool enabled;
 
   const CustomDropDown(
       {super.key,
       this.hint = "",
       this.modalTitle = "Select",
       this.defaultValue = "",
+      this.enabled = true,
       required this.items,
       required this.onChanged,
       required this.baseColor,
@@ -60,6 +62,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           elevation: 3.0,
           shadowColor: Colors.primaries.last,
           child: DropdownSearch<String>(
+            enabled: widget.enabled,
             items: widget.items,
             onChanged: widget.onChanged,
             selectedItem: widget.defaultValue,
@@ -83,15 +86,16 @@ class _CustomDropDownState extends State<CustomDropDown> {
                 ),
                 showSearchBox: true,
                 listViewProps: ListViewProps(
-                  padding: EdgeInsets.symmetric(horizontal: 15)
-                ),
-                searchFieldProps: TextFieldProps(autofocus: true,padding: EdgeInsets.symmetric(horizontal: 20),decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 15),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100)
-                  ),
-                  hintText: "Search ${widget.hint}"
-                ))),
+                    padding: EdgeInsets.symmetric(horizontal: 15)),
+                searchFieldProps: TextFieldProps(
+                    autofocus: true,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100)),
+                        hintText: "Search ${widget.hint}"))),
           ),
         ),
       ],

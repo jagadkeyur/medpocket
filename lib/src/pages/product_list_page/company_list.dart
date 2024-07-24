@@ -44,35 +44,32 @@ class _AddCartCompanyListState extends State<AddCartCompanyList> {
     ThemeData themeData = Theme.of(context);
     return PageLoader(
       loading: loading,
-      child: SingleChildScrollView(
-        child: CustomListView(
-          hasData: data.length > 0 ? true : false,
-          child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: data.length,
-              addRepaintBoundaries: true,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                final item = data[index];
-                return ListTile(
-                  selected:
-                      item['COMPANY_NAME'].toString() == widget.selectedItem,
-                  selectedTileColor: Colors.black12,
-                  selectedColor: themeData.primaryColor,
-                  title: Text(item['COMPANY_NAME']),
-                  onTap: () {
-                    widget.onClick(item);
-                  },
-                  trailing:
-                      item['COMPANY_NAME'].toString() == widget.selectedItem
-                          ? Icon(
-                              Icons.check,
-                              color: themeData.primaryColor,
-                            )
-                          : null,
-                );
-              }),
-        ),
+      child: CustomListView(
+        hasData: data.length > 0 ? true : false,
+        child: ListView.builder(
+            padding: const EdgeInsets.all(8),
+            itemCount: data.length,
+            addRepaintBoundaries: true,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              final item = data[index];
+              return ListTile(
+                selected:
+                    item['COMPANY_NAME'].toString() == widget.selectedItem,
+                selectedTileColor: Colors.black12,
+                selectedColor: themeData.primaryColor,
+                title: Text(item['COMPANY_NAME']),
+                onTap: () {
+                  widget.onClick(item);
+                },
+                trailing: item['COMPANY_NAME'].toString() == widget.selectedItem
+                    ? Icon(
+                        Icons.check,
+                        color: themeData.primaryColor,
+                      )
+                    : null,
+              );
+            }),
       ),
     );
   }
