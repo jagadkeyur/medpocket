@@ -186,7 +186,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                                 updateOrderById({
                                                   "status":
                                                       item['ID'].toString()
-                                                }, args['order']['id']);
+                                                }, args['order']['order_id']);
                                                 Navigator.pop(context);
                                                 initLoad();
                                               })

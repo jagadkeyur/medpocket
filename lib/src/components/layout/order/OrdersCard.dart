@@ -87,7 +87,8 @@ class _OrdersCardState extends State<OrdersCard> {
                 (widget.item['is_received'] == 0 && widget.item['status'] != 5)
                     ? ThemeButton(
                         onClick: () {
-                          updateOrderById({"status": "5"}, widget.item['id']);
+                          updateOrderById(
+                              {"status": "5"}, widget.item['order_id']);
                         },
                         text: "Cancel Order")
                     : Container(),

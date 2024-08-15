@@ -116,13 +116,13 @@ class _ProfilePageState extends State<ProfilePage> {
             buttonLoading = false,
             Fluttertoast.showToast(
                 msg: "Profile Updated", toastLength: Toast.LENGTH_LONG),
-            if (value['status'] == 1)
-              {
-                jwt = JWT(value['data']),
-                token = jwt.sign(SecretKey('medpocket@2022')),
-                setPrefs(token, value['data']),
-                Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false)
-              }
+            // if (value['status'] == 1)
+            //   {
+            //     // jwt = JWT(value['data']),
+            //     // token = jwt.sign(SecretKey('medpocket@2022')),
+            //     // setPrefs(token, value['data']),
+            //     // Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false)
+            //   }
           });
     });
   }
@@ -322,15 +322,20 @@ class _ProfilePageState extends State<ProfilePage> {
                               margin: EdgeInsets.only(left: 10),
                               child: ThemeButton(
                                 onClick: () {
-                                  if (user['stockiest_requested'] == 0) {
+                                  if (user['stockiest_requested'] == 0 &&
+                                      user['is_stockiest'] == 0) {
                                     requestStockiest();
                                   }
                                 },
                                 text: user != null &&
                                         user['stockiest_requested'] == 1
                                     ? "Requested Stockiest"
-                                    : "Verify Stockiest",
+                                    : user != null && user['is_stockiest'] == 1
+                                        ? "Already Verified"
+                                        : "Verify Stockiest",
                                 loading: buttonLoading,
+                                disabled: user['stockiest_requested'] == 1 ||
+                                    user['is_stockiest'] == 1,
                               ),
                             ),
                           ),

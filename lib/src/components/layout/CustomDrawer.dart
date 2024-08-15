@@ -59,7 +59,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 title: Text(
                   user != null &&
                           user['first_name'] != null &&
-                          user['last_name'] != null
+                          user['last_name'] != null &&
+                          user['first_name'] != "" &&
+                          user['last_name'] != ""
                       ? "${user['first_name']} ${user['last_name']}"
                       : "${user['firm_name']}",
                   style: themeData.textTheme.titleLarge,
@@ -73,7 +75,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: themeData.primaryColor),
                   child: Text(
-                      user != null && user['first_name'] != null
+                      user != null &&
+                              user['first_name'] != null &&
+                              user['first_name'] != ""
                           ? "${user['first_name'][0].toUpperCase()}"
                           : "${user['firm_name'][0].toUpperCase()}",
                       style: themeData.textTheme.titleLarge
