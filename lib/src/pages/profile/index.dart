@@ -34,6 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   int compeletedField = 0;
   double progress = 0;
   bool buttonLoading = false;
+  bool buttonLoadingStockiest = false;
   bool loading = false;
   String center = "";
   String token = "";
@@ -104,33 +105,41 @@ class _ProfilePageState extends State<ProfilePage> {
   updateUserProfile() {
     setState(() {
       buttonLoading = true;
-      final data = {
-        "first_name": firstName.text,
-        "last_name": lastName.text,
-        "email": email.text,
-        "firm_name": firmName.text,
-        "city": center ?? "",
-        "phone": mobileNumber.text,
-      };
-      updateProfile(data).then((value) => {
-            buttonLoading = false,
-            Fluttertoast.showToast(
-                msg: "Profile Updated", toastLength: Toast.LENGTH_LONG),
-            // if (value['status'] == 1)
-            //   {
-            //     // jwt = JWT(value['data']),
-            //     // token = jwt.sign(SecretKey('medpocket@2022')),
-            //     // setPrefs(token, value['data']),
-            //     // Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false)
-            //   }
-          });
     });
+    final data = {
+      "first_name": firstName.text,
+      "last_name": lastName.text,
+      "email": email.text,
+      "firm_name": firmName.text,
+      "city": center ?? "",
+      "phone": mobileNumber.text,
+    };
+    updateProfile(data).then((value) => {
+          setState(() {
+            buttonLoading = false;
+          }),
+          Fluttertoast.showToast(
+              msg: "Profile Updated", toastLength: Toast.LENGTH_LONG),
+          // if (value['status'] == 1)
+          //   {
+          //     // jwt = JWT(value['data']),
+          //     // token = jwt.sign(SecretKey('medpocket@2022')),
+          //     // setPrefs(token, value['data']),
+          //     // Navigator.of(context).pushNamedAndRemoveUntil('/', (_) => false)
+          //   }
+        });
   }
 
   requestStockiest() {
+    setState(() {
+      buttonLoadingStockiest = true;
+    });
     final data = {"stockiest_requested": "1"};
+
     updateProfile(data).then((value) => {
-          buttonLoading = false,
+          setState(() {
+            buttonLoadingStockiest = false;
+          }),
           Fluttertoast.showToast(
               msg: "Stockiest Requested", toastLength: Toast.LENGTH_LONG),
           if (value['status'] == 1) getUserProfile()
@@ -333,7 +342,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     : user != null && user['is_stockiest'] == 1
                                         ? "Already Verified"
                                         : "Verify Stockiest",
-                                loading: buttonLoading,
+                                loading: buttonLoadingStockiest,
                                 disabled: user['stockiest_requested'] == 1 ||
                                     user['is_stockiest'] == 1,
                               ),

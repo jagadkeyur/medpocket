@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:medpocket/src/components/layout/CardWrapper.dart';
 
 class GenericCard extends StatelessWidget {
@@ -11,8 +12,17 @@ class GenericCard extends StatelessWidget {
     ThemeData themeData = Theme.of(context);
     return InkWell(
       onTap: () => {
-        Navigator.pushNamed(context, '/brand-search',
-            arguments: {"generic": item['CONTENT']})
+        if (item['CONTENT'] != null && item['CONTENT'] != "")
+          {
+            Navigator.pushNamed(context, '/brand-search',
+                arguments: {"generic": item['CONTENT']})
+          }
+        else
+          {
+            Fluttertoast.showToast(
+                msg: "No product found for this generic",
+                toastLength: Toast.LENGTH_LONG)
+          }
       },
       child: CardWrapper(
         // elevation: 3,
@@ -23,19 +33,19 @@ class GenericCard extends StatelessWidget {
           leading: ShaderMask(
               blendMode: BlendMode.srcIn,
               shaderCallback: (Rect bounds) => LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0, 1],
-                colors: [
-                  themeData.primaryColor,
-                  themeData.primaryColorDark,
-                ],
-              ).createShader(bounds),
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0, 1],
+                    colors: [
+                      themeData.primaryColor,
+                      themeData.primaryColorDark,
+                    ],
+                  ).createShader(bounds),
               child: Icon(
                 Icons.business,
                 size: 40,
               )),
-          title: Text(item['CONTENT']),
+          title: Text(item['CONTENT'] ?? item['generic'] ?? ""),
           // subtitle: Text(item['Strength']),
           dense: true,
         ),
