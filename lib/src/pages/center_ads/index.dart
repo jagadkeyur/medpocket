@@ -46,7 +46,7 @@ class _CenterAdsPageState extends State<CenterAdsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = CarouselController();
+    final controller = CarouselControllerImpl();
     ThemeData themeData = Theme.of(context);
     getSlider() {
       if (centerAdsList.length > 0) {
