@@ -31,55 +31,52 @@ class _VerifyOtpState extends State<VerifyOtp> {
   String otpValue = "";
   bool loading = false;
 
-
-
   @override
   Widget build(BuildContext context) {
     ThemeData? theme = Theme.of(context);
     final routes =
-    ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
 
     setPrefs(token, user) async {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString("token", token);
       prefs.setString("user", jsonEncode(user));
     }
-    verifyOtp() async{
+
+    verifyOtp() async {
       setState(() {
         loading = true;
       });
       var deviceID = await getId();
-      var fcmToken=await FirebaseMessaging.instance.getToken();
-      if(routes['mobile']=="9090909090"){
-        deviceID="12345678900";
+      var fcmToken = await FirebaseMessaging.instance.getToken();
+      if (routes['mobile'] == "9090909090") {
+        deviceID = "12345678900";
       }
-      try{
-
-      verify(routes['mobile']!, otpValue, deviceID!,fcmToken!)
-          .then((res) {
+      try {
+        verify(routes['mobile']!, otpValue, deviceID!, fcmToken!).then((res) {
+          setState(() {
+            loading = false;
+          });
+          if (res['status'] == 1) {
+            Fluttertoast.showToast(
+                msg: "OTP Verified", toastLength: Toast.LENGTH_LONG);
+            setPrefs(res['token'], res['data'][0]);
+            final store = StoreProvider.of<AppState>(context);
+            store.dispatch(getToken(store));
+            Navigator.pushNamedAndRemoveUntil(
+                context,
+                res['data'][0]['reg_key'] == null
+                    ? '/key-validate'
+                    : '/center-speech',
+                (Route<dynamic> route) => false);
+          } else {
+            Fluttertoast.showToast(
+                msg: res['message'], toastLength: Toast.LENGTH_LONG);
+          }
+        });
+      } on Exception catch (_) {
         setState(() {
           loading = false;
-        });
-        if (res['status'] == 1) {
-          Fluttertoast.showToast(
-              msg: "OTP Verified",
-              toastLength: Toast.LENGTH_LONG);
-          setPrefs(res['token'], res['data'][0]);
-          final store = StoreProvider.of<AppState>(context);
-          store.dispatch(getToken(store));
-          Navigator.pushNamedAndRemoveUntil(
-              context,
-              res['data'][0]['reg_key']==null?'/key-validate':'/center-speech',
-                  (Route<dynamic> route) => false);
-        } else {
-          Fluttertoast.showToast(
-              msg: res['message'],
-              toastLength: Toast.LENGTH_LONG);
-        }
-      });
-      }on Exception catch(_){
-        setState(() {
-          loading=false;
         });
         Fluttertoast.showToast(
             msg: "Something went wrong please resend",
@@ -117,9 +114,6 @@ class _VerifyOtpState extends State<VerifyOtp> {
     //   },
     //   listenInBackground: false,
     // );
-
-
-
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -164,7 +158,6 @@ class _VerifyOtpState extends State<VerifyOtp> {
                         length: 6,
                         width: MediaQuery.of(context).size.width,
                         textFieldAlignment: MainAxisAlignment.spaceAround,
-                        fieldWidth: 45,
                         fieldStyle: FieldStyle.underline,
                         outlineBorderRadius: 15,
                         style: const TextStyle(fontSize: 17),
@@ -193,7 +186,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                       padding: const EdgeInsets.only(bottom: 0),
                       child: ThemeButton(
                         loading: loading,
-                        onClick: ()=>verifyOtp(),
+                        onClick: () => verifyOtp(),
                         text: "Verify",
                       ),
                     ),
@@ -205,7 +198,9 @@ class _VerifyOtpState extends State<VerifyOtp> {
                           auth(routes['mobile']!, deviceID!).then((res) => {
                                 if (res['status'] == 1)
                                   {
-                                    Fluttertoast.showToast(msg: "OTP sent again",toastLength: Toast.LENGTH_LONG)
+                                    Fluttertoast.showToast(
+                                        msg: "OTP sent again",
+                                        toastLength: Toast.LENGTH_LONG)
                                   }
                               });
                         },
