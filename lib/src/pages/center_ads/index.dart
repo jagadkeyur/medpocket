@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart' as carousel_slider;
+// import 'package:carousel_slider/carousel_slider.dart' as carousel_slider;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medpocket/src/api/profile.dart';
@@ -50,42 +50,43 @@ class _CenterAdsPageState extends State<CenterAdsPage> {
     ThemeData themeData = Theme.of(context);
     getSlider() {
       if (centerAdsList.length > 0) {
-        return carousel_slider.CarouselSlider.builder(
-          itemCount: centerAdsList.length,
-          itemBuilder:
-              (BuildContext context, int itemIndex, int pageViewIndex) => Card(
-            margin: const EdgeInsets.all(15),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 5,
-            clipBehavior: Clip.hardEdge,
-            child: Image.network(
-              centerAdsList[itemIndex]['attachment'],
-              fit: BoxFit.fitWidth,
-            ),
-          ),
-          carouselController: controller,
-          options: carousel_slider.CarouselOptions(
-              // height: MediaQuery.of(context).size.height-200,
-              viewportFraction: 1.0,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: true,
-              autoPlayInterval: Duration(seconds: 3),
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
-              enlargeCenterPage: true,
-              enlargeFactor: 0.4,
-              onPageChanged: (page, reason) => {
-                    setState(() {
-                      selectedPage = page;
-                    })
-                  },
-              scrollDirection: Axis.horizontal,
-              disableCenter: true,
-              pageSnapping: true),
-        );
+        // return carousel_slider.CarouselSlider.builder(
+        //   itemCount: centerAdsList.length,
+        //   itemBuilder:
+        //       (BuildContext context, int itemIndex, int pageViewIndex) => Card(
+        //     margin: const EdgeInsets.all(15),
+        //     shape:
+        //         RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        //     elevation: 5,
+        //     clipBehavior: Clip.hardEdge,
+        //     child: Image.network(
+        //       centerAdsList[itemIndex]['attachment'],
+        //       fit: BoxFit.fitWidth,
+        //     ),
+        //   ),
+        //   carouselController: controller,
+        //   options: carousel_slider.CarouselOptions(
+        //       // height: MediaQuery.of(context).size.height-200,
+        //       viewportFraction: 1.0,
+        //       initialPage: 0,
+        //       enableInfiniteScroll: true,
+        //       reverse: false,
+        //       autoPlay: true,
+        //       autoPlayInterval: Duration(seconds: 3),
+        //       autoPlayAnimationDuration: Duration(milliseconds: 800),
+        //       autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
+        //       enlargeCenterPage: true,
+        //       enlargeFactor: 0.4,
+        //       onPageChanged: (page, reason) => {
+        //             setState(() {
+        //               selectedPage = page;
+        //             })
+        //           },
+        //       scrollDirection: Axis.horizontal,
+        //       disableCenter: true,
+        //       pageSnapping: true),
+        // );
+        return Container();
       } else {
         return Container();
       }
