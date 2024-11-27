@@ -46,7 +46,7 @@ class _CenterAdsPageState extends State<CenterAdsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = carousel_slider.CarouselController();
+    // final controller = carousel_slider.CarouselController();
     ThemeData themeData = Theme.of(context);
     getSlider() {
       if (centerAdsList.length > 0) {
@@ -97,7 +97,7 @@ class _CenterAdsPageState extends State<CenterAdsPage> {
       for (int i = 0; i < centerAdsList.length; i++) {
         data.add(InkWell(
           onTap: () {
-            controller.animateToPage(i, duration: const Duration(seconds: 1));
+            // controller.animateToPage(i, duration: const Duration(seconds: 1));
           },
           child: Container(
             width: size,
