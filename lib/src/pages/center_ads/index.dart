@@ -1,6 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart' as carousel_slider;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' hide CarouselController;
+import 'package:flutter/material.dart';
 import 'package:medpocket/src/api/profile.dart';
 import 'package:medpocket/src/components/layout/PageLoader.dart';
 import 'package:medpocket/src/components/ui/ThemeButton.dart';
@@ -46,11 +46,11 @@ class _CenterAdsPageState extends State<CenterAdsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = CarouselController();
+    final controller = carousel_slider.CarouselController();
     ThemeData themeData = Theme.of(context);
     getSlider() {
       if (centerAdsList.length > 0) {
-        return CarouselSlider.builder(
+        return carousel_slider.CarouselSlider.builder(
           itemCount: centerAdsList.length,
           itemBuilder:
               (BuildContext context, int itemIndex, int pageViewIndex) => Card(
@@ -65,7 +65,7 @@ class _CenterAdsPageState extends State<CenterAdsPage> {
             ),
           ),
           carouselController: controller,
-          options: CarouselOptions(
+          options: carousel_slider.CarouselOptions(
               // height: MediaQuery.of(context).size.height-200,
               viewportFraction: 1.0,
               initialPage: 0,
