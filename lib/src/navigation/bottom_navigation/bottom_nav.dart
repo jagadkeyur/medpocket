@@ -115,115 +115,106 @@ class _BottomNavState extends State<BottomNav> {
           child: SizedBox.expand(child: child),
         ),
         bottomNavigationBar: Container(
-          margin: const EdgeInsets.all(15),
+          margin: const EdgeInsets.all(0), // Remove margin
+          padding: EdgeInsets.zero, // Remove padding
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(10),
-                border: GradientBoxBorder(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomRight,
-                    end: Alignment.topLeft,
-                    stops: const [0, 0.5],
-                    colors: [
-                      themeData.primaryColorDark,
-                      themeData.primaryColor,
-                    ],
-                  ),
-                  width: 1.5,
-                ),
-              ),
-              child: BottomNavigationBar(
-                backgroundColor: Colors.transparent,
-                currentIndex: _index,
-                onTap: (value) {
-                  setState(() {
-                    _index = value;
-                  });
-                },
-                elevation: 0,
-                showUnselectedLabels: false,
-                selectedItemColor: themeData.primaryColor,
-                unselectedItemColor: Colors.white.withOpacity(0.8),
-                items: [
-                  BottomNavigationBarItem(
-                    backgroundColor: Colors.transparent,
-                    icon: ShaderMask(
-                      blendMode: BlendMode.srcIn,
-                      shaderCallback: (Rect bounds) => LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: const [0, 1],
-                        colors: [
-                          themeData.primaryColor,
-                          themeData.primaryColorDark
-                        ],
-                      ).createShader(bounds),
-                      child: const Icon(Icons.home),
-                    ),
-                    label: "Home",
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: Colors.transparent,
-                    icon: ShaderMask(
-                      blendMode: BlendMode.srcIn,
-                      shaderCallback: (Rect bounds) => LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: const [0, 1],
-                        colors: [
-                          themeData.primaryColor,
-                          themeData.primaryColorDark
-                        ],
-                      ).createShader(bounds),
-                      child: const Icon(Icons.person_outline),
-                    ),
-                    label: "Profile",
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: Colors.transparent,
-                    icon: ShaderMask(
-                      blendMode: BlendMode.srcIn,
-                      shaderCallback: (Rect bounds) => LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: const [0, 1],
-                        colors: [
-                          themeData.primaryColor,
-                          themeData.primaryColorDark
-                        ],
-                      ).createShader(bounds),
-                      child: const Icon(Icons.newspaper),
-                    ),
-                    label: "News",
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: Colors.transparent,
-                    icon: ShaderMask(
-                      blendMode: BlendMode.srcIn,
-                      shaderCallback: (Rect bounds) => LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: const [0, 1],
-                        colors: [
-                          themeData.primaryColor,
-                          themeData.primaryColorDark
-                        ],
-                      ).createShader(bounds),
-                      child: const Icon(Icons.info_outline),
-                    ),
-                    label: "About Us",
-                  ),
+            color: Colors.white60,
+            border: GradientBoxBorder(
+              gradient: LinearGradient(
+                begin: Alignment.bottomRight,
+                end: Alignment.topLeft,
+                stops: const [0, 0.5],
+                colors: [
+                  themeData.primaryColorDark,
+                  themeData.primaryColor,
                 ],
               ),
+              width: 2.0,
             ),
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.transparent,
+            currentIndex: _index,
+            onTap: (value) {
+              setState(() {
+                _index = value;
+              });
+            },
+            elevation: 0,
+            showUnselectedLabels: false,
+            selectedItemColor: themeData.primaryColor,
+            unselectedItemColor: Colors.white.withOpacity(0.8),
+            items: [
+              BottomNavigationBarItem(
+                backgroundColor: Colors.transparent,
+                icon: ShaderMask(
+                  blendMode: BlendMode.srcIn,
+                  shaderCallback: (Rect bounds) => LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0, 1],
+                    colors: [
+                      themeData.primaryColor,
+                      themeData.primaryColorDark
+                    ],
+                  ).createShader(bounds),
+                  child: const Icon(Icons.home),
+                ),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Colors.transparent,
+                icon: ShaderMask(
+                  blendMode: BlendMode.srcIn,
+                  shaderCallback: (Rect bounds) => LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0, 1],
+                    colors: [
+                      themeData.primaryColor,
+                      themeData.primaryColorDark
+                    ],
+                  ).createShader(bounds),
+                  child: const Icon(Icons.person_outline),
+                ),
+                label: "Profile",
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Colors.transparent,
+                icon: ShaderMask(
+                  blendMode: BlendMode.srcIn,
+                  shaderCallback: (Rect bounds) => LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0, 1],
+                    colors: [
+                      themeData.primaryColor,
+                      themeData.primaryColorDark
+                    ],
+                  ).createShader(bounds),
+                  child: const Icon(Icons.newspaper),
+                ),
+                label: "News",
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Colors.transparent,
+                icon: ShaderMask(
+                  blendMode: BlendMode.srcIn,
+                  shaderCallback: (Rect bounds) => LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0, 1],
+                    colors: [
+                      themeData.primaryColor,
+                      themeData.primaryColorDark
+                    ],
+                  ).createShader(bounds),
+                  child: const Icon(Icons.info_outline),
+                ),
+                label: "About Us",
+              ),
+            ],
           ),
         ),
       ),

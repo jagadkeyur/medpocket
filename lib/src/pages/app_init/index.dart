@@ -105,7 +105,7 @@ class _AppInitState extends State<AppInit> {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString("token");
       // log(token ?? "no token");
-      String child = '/home';
+      String child = '/center-speech';
       var user;
       Future.delayed(
           const Duration(seconds: 2),
