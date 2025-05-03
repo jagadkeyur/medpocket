@@ -12,8 +12,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   const CustomAppBar({Key? key, required this.title}) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -67,7 +65,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                     style: themeData.textTheme.bodyLarge,
                                   ),
                                   onTap: () async {
-                                    var result = await Share.shareWithResult(
+                                    var result = await Share.share(
                                         'Let me recommend you this application https://play.google.com/store/apps/details?id=com.app.medpocket');
 
                                     if (result.status ==
@@ -84,10 +82,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                     "Share Feedback",
                                     style: themeData.textTheme.bodyLarge,
                                   ),
-                                  onTap: ()async{
-                                    final Uri url = Uri.parse('mailto:info@medpocket.in?subject=Feedback for medpocket app');
-                                    if (!await launchUrl(url,mode: LaunchMode.externalApplication)) {
-                                      Fluttertoast.showToast(msg: "Sorry feedback closed");
+                                  onTap: () async {
+                                    final Uri url = Uri.parse(
+                                        'mailto:info@medpocket.in?subject=Feedback for medpocket app');
+                                    if (!await launchUrl(url,
+                                        mode: LaunchMode.externalApplication)) {
+                                      Fluttertoast.showToast(
+                                          msg: "Sorry feedback closed");
                                     }
                                   },
                                 )

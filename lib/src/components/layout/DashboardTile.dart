@@ -26,50 +26,61 @@ class _DashboardTileState extends State<DashboardTile> {
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
     return CircleWrapper(
-      child: InkWell(
-        onTap: () => widget.onClick(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ShaderMask(
+      child: Material(
+        // ✅ Added Material widget
+        color: Colors.transparent, // maintain existing visual design
+        child: InkWell(
+          onTap: () => widget.onClick(),
+          borderRadius: BorderRadius.circular(
+              20), // optional: matches CircleWrapper if needed
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ShaderMask(
                 blendMode: BlendMode.srcIn,
                 shaderCallback: (Rect bounds) => LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: [0, 1],
-                      colors: [
-                        themeData.primaryColor,
-                        themeData.primaryColorDark,
-                      ],
-                    ).createShader(bounds),
-                child: widget.icon),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
-              child: ShaderMask(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0, 1],
+                  colors: [
+                    themeData.primaryColor,
+                    themeData.primaryColorDark,
+                  ],
+                ).createShader(bounds),
+                child: widget.icon,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
+                child: ShaderMask(
                   blendMode: BlendMode.srcIn,
                   shaderCallback: (Rect bounds) => LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: [0, 1],
-                        colors: [
-                          themeData.primaryColor,
-                          Colors.black87,
-                        ],
-                      ).createShader(bounds),
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0, 1],
+                    colors: [
+                      themeData.primaryColor,
+                      Colors.black87,
+                    ],
+                  ).createShader(bounds),
                   child: Center(
-                      child: Text(
-                    widget.label,
-                    style: const TextStyle(color: Colors.red,fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ))),
-            )
-          ],
+                    child: Text(
+                      widget.label,
+                      style: const TextStyle(color: Colors.red, fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ).animate()
-        .fadeIn(delay: (widget.index*100).ms) // uses `Animate.defaultDuration`
-        .slideY(duration: 100.ms,delay: (widget.index*100).ms,begin: 1,end: 0)
-        .slideX(duration: 100.ms,delay: (widget.index*100).ms);
+    )
+        .animate()
+        .fadeIn(delay: (widget.index * 100).ms)
+        .slideY(
+            duration: 100.ms, delay: (widget.index * 100).ms, begin: 1, end: 0)
+        .slideX(duration: 100.ms, delay: (widget.index * 100).ms);
   }
 }

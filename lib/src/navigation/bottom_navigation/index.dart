@@ -35,7 +35,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       // dragOffset: 100,
       menuScreenTapClose: true,
       mainScreenScale: 0.3,
-      slideWidth: MediaQuery.of(context).size.width*(0.9),
+      slideWidth: MediaQuery.of(context).size.width * (0.9),
       angle: 0,
     );
   }

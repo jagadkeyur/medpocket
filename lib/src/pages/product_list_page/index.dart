@@ -10,7 +10,6 @@ import 'package:medpocket/src/components/layout/brand/BrandList.dart';
 import 'package:medpocket/src/components/layout/product/ProductList.dart';
 
 class ProductListPage extends StatefulWidget {
-
   const ProductListPage({Key? key}) : super(key: key);
 
   @override
@@ -19,39 +18,45 @@ class ProductListPage extends StatefulWidget {
 
 class _ProductListPageState extends State<ProductListPage> {
   final searchText = TextEditingController();
-  late dynamic listData=[];
+  late dynamic listData = [];
   late dynamic args;
-bool loading=false;
-
+  bool loading = false;
 
   @override
-  initState(){
+  initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
       setState(() {
-        loading=true;
+        loading = true;
+        // Safely initialize args with a null check
         args = ModalRoute.of(context)?.settings.arguments;
-        productSearchByBrand(args['brand']).then((value) => {
-          setState((){
-            loading=false;
-            listData=value['data'];
-          })
-        });
+
+        if (args != null && args['brand'] != null) {
+          productSearchByBrand(args['brand']).then((value) {
+            setState(() {
+              loading = false;
+              listData = value['data'];
+            });
+          });
+        } else {
+          // Handle the case where args or args['brand'] is null
+          loading = false;
+          listData = []; // Set a default empty list or show an error message
+        }
       });
-
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
-
     ThemeData themeData = Theme.of(context);
-
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: CustomAppBar(
-        title: args['brand'],
+        title: args != null && args['brand'] != null
+            ? args['brand']
+            : 'Unknown Brand',
       ),
       body: PageLoader(
         loading: loading,
@@ -60,11 +65,9 @@ bool loading=false;
           child: SizedBox.expand(
             child: Column(
               children: [
-
                 Expanded(
-                  child:ProductList(listData: listData,) ,
-                )
-                //
+                  child: ProductList(listData: listData),
+                ),
               ],
             ),
           ),

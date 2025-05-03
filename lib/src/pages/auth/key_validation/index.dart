@@ -60,11 +60,13 @@ class _KeyValidationState extends State<KeyValidation> {
       }
     }
   }
+
   @override
   void initState() {
     super.initState();
     didChangeAppLifecycleState(AppLifecycleState.detached);
   }
+
   @override
   Widget build(BuildContext context) {
     ThemeData? theme = Theme.of(context);
@@ -81,25 +83,22 @@ class _KeyValidationState extends State<KeyValidation> {
     }
 
     Widget qrScanner() {
-
-
       return MobileScanner(
         controller: controller,
-        overlay: QRScannerOverlay(overlayColour: Colors.black45,),
+        // overlay: QRScannerOverlay(
+        //   overlayColour: Colors.black45,
+        // ),
         // fit: BoxFit.contain,
         onDetect: (capture) {
           final List<Barcode> barcodes = capture.barcodes;
           final Uint8List? image = capture.image;
           for (final barcode in barcodes) {
-            if(barcode.rawValue!=''){
-            debugPrint('Barcode found! ${barcode.rawValue}');
+            if (barcode.rawValue != '') {
+              debugPrint('Barcode found! ${barcode.rawValue}');
               keyValidator.text = barcode.rawValue ?? "";
               controller?.dispose();
               controller?.stop();
-              Future.delayed(Duration.zero,()=>{
-
-                    Navigator.pop(context)
-              });
+              Future.delayed(Duration.zero, () => {Navigator.pop(context)});
             }
           }
         },
@@ -215,25 +214,23 @@ class _KeyValidationState extends State<KeyValidation> {
                     onClick: () async {
                       setState(() {
                         loading = true;
-
                       });
                       validateRegKey(keyValidator.text).then((res) => {
-                      setState(() {
-                      loading = false;
-
-                      }),
-                        if (res['status'] == 1)
-                          {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              '/center-speech',
+                            setState(() {
+                              loading = false;
+                            }),
+                            if (res['status'] == 1)
+                              {
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  '/center-speech',
                                   (Route<dynamic> route) => false,
-                            )
-                          },
-                        Fluttertoast.showToast(
-                            msg: res['message'],
-                            toastLength: Toast.LENGTH_LONG)
-                      });
+                                )
+                              },
+                            Fluttertoast.showToast(
+                                msg: res['message'],
+                                toastLength: Toast.LENGTH_LONG)
+                          });
                     },
                     text: "Validate",
                   ),

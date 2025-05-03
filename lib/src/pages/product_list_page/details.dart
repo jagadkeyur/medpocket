@@ -317,11 +317,11 @@ class _ProductDetailState extends State<ProductDetail> {
       appBar: const CustomAppBar(
         title: "Product Detail",
       ),
-      body: PageLoader(
-        loading: loading,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
-          child: SizedBox.expand(
+      body: SingleChildScrollView(
+        child: PageLoader(
+          loading: loading,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -420,7 +420,6 @@ class _ProductDetailState extends State<ProductDetail> {
                                             selectedItem: selectedCompany,
                                             onClick: (val) {
                                               setState(() {
-                                                // companyId = val['ID'];
                                                 selectedCompany =
                                                     val['COMPANY_NAME'];
                                               });
@@ -435,8 +434,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                     ],
                   ),
-                )
-                //
+                ),
               ],
             ),
           ),
