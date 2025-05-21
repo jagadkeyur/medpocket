@@ -8,15 +8,14 @@ import 'package:medpocket/src/components/ui/ThemeIcon.dart';
 class CartCard extends StatefulWidget {
   final dynamic item;
   final Function(dynamic) onDelete;
-  const CartCard({Key? key, required this.item,required this.onDelete}) : super(key: key);
+  const CartCard({Key? key, required this.item, required this.onDelete})
+      : super(key: key);
 
   @override
   State<CartCard> createState() => _CartCardState();
 }
 
 class _CartCardState extends State<CartCard> {
-
-
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -79,9 +78,7 @@ class _CartCardState extends State<CartCard> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "₹ ${(int.parse(widget.item['MRP'].split('.')[0]) * quantity!).toStringAsFixed(2)
-        .toString()
-  }",
+                      "₹ ${(double.parse(widget.item['MRP']) * quantity!).toStringAsFixed(2).toString()}",
                       style: themeData.textTheme.titleLarge
                           ?.copyWith(color: themeData.primaryColorDark),
                     ),

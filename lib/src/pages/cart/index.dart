@@ -18,7 +18,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   dynamic cartList = [];
-  int? total = 0;
+  double? total = 0;
   bool cartLoading = false;
   bool loading = false;
   @override
@@ -37,10 +37,10 @@ class _CartPageState extends State<CartPage> {
             cartList = value['data'];
             loading = false;
             var sum = cartList.fold(0, (i, el) {
-              return i + (int.parse(el['MRP'].split('.')[0]) * el['quantity']!);
+              return i + (double.parse(el['MRP']) * el['quantity']!);
             });
             debugPrint("sum $sum");
-            total = sum;
+            total = double.parse(sum.toString());
           })
         });
   }

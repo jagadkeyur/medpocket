@@ -12,7 +12,7 @@ class ChemistDrugistCard extends StatelessWidget {
     return InkWell(
       onTap: () => {
         Navigator.pushNamed(context, '/stockiest-details',
-            arguments: {"stockiest": item['firm_name']})
+            arguments: {"chemist": item})
       },
       child: CardWrapper(
         // elevation: 3,
@@ -23,14 +23,14 @@ class ChemistDrugistCard extends StatelessWidget {
           leading: ShaderMask(
               blendMode: BlendMode.srcIn,
               shaderCallback: (Rect bounds) => LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0, 1],
-                colors: [
-                  themeData.primaryColor,
-                  themeData.primaryColorDark,
-                ],
-              ).createShader(bounds),
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0, 1],
+                    colors: [
+                      themeData.primaryColor,
+                      themeData.primaryColorDark,
+                    ],
+                  ).createShader(bounds),
               child: Icon(
                 Icons.business,
                 size: 40,

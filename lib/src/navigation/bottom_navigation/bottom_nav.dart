@@ -96,7 +96,7 @@ class _BottomNavState extends State<BottomNav> {
       child: Scaffold(
         key: _key,
         extendBodyBehindAppBar: true,
-        extendBody: true,
+        extendBody: false,
         appBar: CustomAppBar(title: title),
         body: Container(
           padding: const EdgeInsets.only(top: 100),

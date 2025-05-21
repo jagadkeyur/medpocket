@@ -247,19 +247,6 @@ class _ProductDetailState extends State<ProductDetail> {
                       ),
                       child: Column(
                         children: [
-                          Expanded(
-                            child: AddCartStockiestList(
-                              company: selectedCompany,
-                              selectedItem: selectedStockiest != null
-                                  ? selectedStockiest['FIRM_NAME']
-                                  : "",
-                              onClick: (val) {
-                                setState(() {
-                                  selectedStockiest = val;
-                                });
-                              },
-                            ),
-                          ),
                           Container(
                             decoration: BoxDecoration(
                                 // color: Colors.black26,
@@ -303,7 +290,20 @@ class _ProductDetailState extends State<ProductDetail> {
                                 ],
                               ),
                             ),
-                          )
+                          ),
+                          Expanded(
+                            child: AddCartStockiestList(
+                              company: selectedCompany,
+                              selectedItem: selectedStockiest != null
+                                  ? selectedStockiest['FIRM_NAME']
+                                  : "",
+                              onClick: (val) {
+                                setState(() {
+                                  selectedStockiest = val;
+                                });
+                              },
+                            ),
+                          ),
                         ],
                       ));
                 },

@@ -154,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
       loading: loading,
       child: user != null
           ? Container(
-              padding: EdgeInsets.only(bottom: 100),
+              padding: EdgeInsets.only(bottom: 10),
               child: Column(
                 children: [
                   Expanded(

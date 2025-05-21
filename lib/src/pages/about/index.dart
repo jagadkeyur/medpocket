@@ -14,7 +14,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
     ThemeData themeData = Theme.of(context);
     return Container(
       child: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 100),
+        padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
         child: Column(
           children: [
             Text(

@@ -53,7 +53,7 @@ class _OrdersCardState extends State<OrdersCard> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "₹ ${widget.item['amount']}",
+                    "₹ ${double.parse(widget.item['amount'].toString()).toStringAsFixed(2)}",
                     style: themeData.textTheme.titleLarge?.copyWith(
                         color: themeData.primaryColorDark, fontSize: 20),
                   ),

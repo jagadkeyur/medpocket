@@ -40,6 +40,12 @@ class _StockiestDetailsState extends State<StockiestDetails> {
                   })
               });
         }
+        if (args['chemist'] != null) {
+          setState(() {
+            loading = false;
+            stockiest = args['chemist'];
+          });
+        }
       }
     });
   }

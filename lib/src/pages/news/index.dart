@@ -47,7 +47,7 @@ class _NewsPageState extends State<NewsPage> {
           hasData: newsList.length > 0 ? true : false,
           child: ListView.builder(
               padding:
-                  const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 100),
+                  const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
               itemCount: newsList.length,
               addRepaintBoundaries: true,
               shrinkWrap: true,
