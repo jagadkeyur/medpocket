@@ -205,6 +205,9 @@ class _AddStockiestState extends State<AddStockiest> {
                                 {
                                   setState(() {
                                     file = null;
+                                    firmName.text = "";
+                                    city.text = "";
+                                    mobileNumber.text = "";
                                   }),
                                   Fluttertoast.showToast(
                                       msg: "Stockiest Added",
