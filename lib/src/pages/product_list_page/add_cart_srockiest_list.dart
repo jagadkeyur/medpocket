@@ -45,7 +45,6 @@ class _AddCartStockiestListState extends State<AddCartStockiestList> {
             itemCount: data.length,
             addRepaintBoundaries: true,
             shrinkWrap: true,
-            reverse: true,
             itemBuilder: (BuildContext context, int index) {
               final item = data[index];
               return ListTile(
